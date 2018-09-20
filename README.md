@@ -18,5 +18,5 @@ go build
 ```
 ./git-sync -repo="<url to remote repository>" -path="<path to directory for clone repository>"
 ```  
-
-#### *! This project is under development !*
+  
+> #### ! This project is under development !
