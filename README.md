@@ -1,5 +1,4 @@
 # git-sync
-git <clone / fetch / pull> in real time.
   
 > #### ! This project is under development !
   
