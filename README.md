@@ -1,6 +1,8 @@
 # git-sync
 git <clone / fetch / pull> in real time.
-
+  
+> #### ! This project is under development !
+  
 ### Getting
 
 ```
@@ -18,5 +20,3 @@ go build
 ```
 ./git-sync -repo="<url to remote repository>" -path="<path to directory for clone repository>"
 ```  
-  
-> #### ! This project is under development !
