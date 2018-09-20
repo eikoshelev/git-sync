@@ -14,7 +14,7 @@ func main() {
 
 	flag.Parse()
 
-	cloneRepo(*remoteRepo, *localPath)
+	gitClone(*remoteRepo, *localPath)
 
 	sgnl := make(chan os.Signal)
 	signal.Notify(sgnl, os.Interrupt, os.Kill)

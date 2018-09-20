@@ -9,39 +9,39 @@ import (
 )
 
 // cloneRepo - cloning remote repository
-func cloneRepo(url, dir string) {
+func gitClone(url, dir string) {
 	repo, err := git.PlainClone(dir, false, &git.CloneOptions{
 		URL:      url,
 		Progress: os.Stdout,
 	})
 	if err != nil {
-		log.Printf("[cloneRepo] Error: %v", err)
+		log.Printf("[Clone] Failed clone remote repository: %v", err)
 	}
 
 	go func() {
 		for {
-			fetchCheck(repo)
+			gitFetch(repo)
 			time.Sleep(5 * time.Second)
 		}
 	}()
 }
 
 // fetchCheck - chek update repository
-func fetchCheck(repos *git.Repository) {
+func gitFetch(repos *git.Repository) {
 	err := repos.Fetch(&git.FetchOptions{
 		RemoteName: "origin",
 		Progress:   os.Stdout,
 	})
 	if err == git.NoErrAlreadyUpToDate {
-		log.Printf("[fetchCheck] Nothing update: %v", err)
+		log.Printf("[Fetch] Nothing update: %v", err)
 	} else {
-		log.Printf("[fetchCheck] There are updates, Downloading... : %v", err)
-		pullRepo(repos)
+		log.Printf("[Fetch] Update detected, Downloading.. : %v", err)
+		gitPull(repos)
 	}
 }
 
 // pullRepo - pulling remote repository if there is an update
-func pullRepo(repository *git.Repository) {
+func gitPull(repository *git.Repository) {
 	wTree, err := repository.Worktree()
 	if err != nil {
 		log.Printf("Error: %v", err)
@@ -52,6 +52,6 @@ func pullRepo(repository *git.Repository) {
 		Progress:   os.Stdout,
 	})
 	if err != nil {
-		log.Printf("[pullRepo] Error: %v", err)
+		log.Printf("[Pull] Failed pull remote repository: %v", err)
 	}
 }
