@@ -9,7 +9,7 @@ import (
 )
 
 // cloneRepo - cloning remote repository
-func gitClone(url, dir string) {
+func gitClone(url, dir string, timer int64) {
 	repo, err := git.PlainClone(dir, false, &git.CloneOptions{
 		URL:      url,
 		Progress: os.Stdout,
@@ -21,7 +21,7 @@ func gitClone(url, dir string) {
 	go func() {
 		for {
 			gitFetch(repo)
-			time.Sleep(5 * time.Second)
+			time.Sleep(time.Duration(timer) * time.Second)
 		}
 	}()
 }
@@ -44,7 +44,7 @@ func gitFetch(repos *git.Repository) {
 func gitPull(repository *git.Repository) {
 	wTree, err := repository.Worktree()
 	if err != nil {
-		log.Printf("Error: %v", err)
+		log.Printf("[Pull] Failed get work tree: %v", err)
 	}
 
 	err = wTree.Pull(&git.PullOptions{

@@ -17,7 +17,7 @@ go build
 ### Usage
 
 ```
-./git-sync -repo="<url to remote repository>" -path="<path to directory for clone repository>"
+./git-sync -repo="<url to remote repository>" -path="<path to directory for clone repository> -time=<timeout for check update (seconds, default - 60 sec)>"
 ```  
   
 ### TODO
