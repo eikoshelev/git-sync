@@ -19,7 +19,7 @@ func gitClone(key, url, dir string, timer int64) {
 	// check repository availability in local directory
 	repo, err := git.PlainOpen(dir)
 	if err != nil {
-		log.Printf("[Clone] Repository not found in '%s' cloning...", dir)
+		log.Printf("Repository not found in '%s' cloning...", dir)
 		repo, err = git.PlainClone(dir, false, &git.CloneOptions{
 			URL:  url,
 			Auth: skey,
