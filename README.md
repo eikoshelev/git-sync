@@ -22,7 +22,7 @@ vgo build
 ### Usage
 
 ```
-./git-sync -repo="<url to remote repository>" -dir="<path to local directory for clone repository>" -key="<path to private ssh key for auth to the remote repository>" -timer=<timeout for check update (seconds, default - 60 sec)>
+./git-sync -repo="git@github.com:eikoshelev/git-sync.git" -dir="/tmp/git-sync" -key="~/.ssh/id_rsa" -timer=60
 ```  
 * More information: ```./git-sync -h```
 ```
