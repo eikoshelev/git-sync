@@ -60,7 +60,7 @@ func gitAuth(uri string, key string) (transport.AuthMethod, error) {
 func gitClone(key, url, dir string, timer int64) {
 	skey, err := gitAuth(url, key)
 	if err != nil {
-		log.Printf("[Auth] Failed auth: %s", err)
+		log.Printf("[Clone Auth] Failed auth: %s", err)
 	}
 	repo, err := git.PlainClone(dir, false, &git.CloneOptions{
 		URL:               url,
@@ -85,7 +85,7 @@ func gitClone(key, url, dir string, timer int64) {
 func gitFetch(repos *git.Repository, url, key string) {
 	skey, err := gitAuth(url, key)
 	if err != nil {
-		log.Printf("[Auth] Failed auth: %s", err)
+		log.Printf("[Fetch Auth] Failed auth: %s", err)
 	}
 	err = repos.Fetch(&git.FetchOptions{
 		Auth:     skey,
@@ -102,7 +102,7 @@ func gitFetch(repos *git.Repository, url, key string) {
 func gitPull(repository *git.Repository, url, key string) {
 	skey, err := gitAuth(url, key)
 	if err != nil {
-		log.Printf("[Auth] Failed auth: %s", err)
+		log.Printf("[Pull Auth] Failed auth: %s", err)
 	}
 	wTree, err := repository.Worktree()
 	if err != nil {
@@ -118,5 +118,7 @@ func gitPull(repository *git.Repository, url, key string) {
 	})
 	if err != nil {
 		log.Printf("[Pull] Failed pull remote repository: %s", err)
+	} else {
+		log.Println("[Pull] Success!")
 	}
 }
