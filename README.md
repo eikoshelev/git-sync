@@ -3,7 +3,7 @@
 ### Description
 
 Update local repository in real time.
-* Check repository availability in local directory (if the repository is found - it checks for updates, if not - then it clones)
+* Check repository availability in local directory (if the repository is found - it checks for updates, if not - then it clones);
 * After a certain period of time checks for updates in the remote repository;
 * In the presence of updates makes "git pull".
   
