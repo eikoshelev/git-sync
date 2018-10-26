@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"io/ioutil"
 	"log"
 	"os"
@@ -30,16 +29,16 @@ func gitAuth(uri string, key string) (transport.AuthMethod, error) {
 
 		sshFile, err := os.Open(key)
 		if err != nil {
-			return nil, errors.New("[Auth] Failed open SSH key file: " + err.Error())
+			log.Printf("[Auth] Failed open SSH key file: %s", err)
 		}
 		sshB, err := ioutil.ReadAll(sshFile)
 		if err != nil {
-			return nil, errors.New("[Auth] Failed read SSH key: " + err.Error())
+			log.Printf("[Auth] Failed read SSH key: %s", err)
 		}
 
 		signer, err = ssh.ParsePrivateKey(sshB)
 		if err != nil {
-			return nil, errors.New("[Auth] Failed parse SSH key: " + err.Error())
+			log.Printf("[Auth] Failed parse SSH key: %s", err)
 		}
 
 		sshAuth := &gitssh.PublicKeys{User: "git", Signer: signer}
@@ -61,16 +60,17 @@ func gitAuth(uri string, key string) (transport.AuthMethod, error) {
 func gitClone(key, url, dir string, timer int64) {
 	skey, err := gitAuth(url, key)
 	if err != nil {
-		log.Printf("[Auth] Failed auth: " + err.Error())
+		log.Printf("[Auth] Failed auth: %s", err)
 	}
 	repo, err := git.PlainClone(dir, false, &git.CloneOptions{
-		URL:      url,
-		Auth:     skey,
-		Depth:    1,
-		Progress: os.Stdout,
+		URL:               url,
+		Auth:              skey,
+		SingleBranch:      true,
+		RecurseSubmodules: git.DefaultSubmoduleRecursionDepth,
+		Progress:          os.Stdout,
 	})
 	if err != nil {
-		log.Printf("[Clone] Failed clone remote repository: " + err.Error())
+		log.Printf("[Clone] Failed clone remote repository: %s", err)
 	}
 
 	go func() {
@@ -85,17 +85,15 @@ func gitClone(key, url, dir string, timer int64) {
 func gitFetch(repos *git.Repository, url, key string) {
 	skey, err := gitAuth(url, key)
 	if err != nil {
-		log.Printf("[Auth] Failed auth" + err.Error())
+		log.Printf("[Auth] Failed auth: %s", err)
 	}
 	err = repos.Fetch(&git.FetchOptions{
-		Depth:    1,
 		Auth:     skey,
 		Progress: os.Stdout,
+		Force:    true,
 	})
-	if err == git.NoErrAlreadyUpToDate {
-		log.Printf("[Fetch] Nothing update: " + err.Error())
-	} else {
-		log.Printf("[Fetch] Update detected, Downloading.. : " + err.Error())
+	if err != git.NoErrAlreadyUpToDate {
+		log.Println("[Fetch] Update detected, pulling.. ")
 		gitPull(repos, url, key)
 	}
 }
@@ -104,19 +102,21 @@ func gitFetch(repos *git.Repository, url, key string) {
 func gitPull(repository *git.Repository, url, key string) {
 	skey, err := gitAuth(url, key)
 	if err != nil {
-		log.Printf("[Auth] Failed auth" + err.Error())
+		log.Printf("[Auth] Failed auth: %s", err)
 	}
 	wTree, err := repository.Worktree()
 	if err != nil {
-		log.Printf("[Pull] Failed get work tree: " + err.Error())
+		log.Printf("[Pull] Failed get work tree: %s", err)
 	}
 
 	err = wTree.Pull(&git.PullOptions{
-		Auth:     skey,
-		Progress: os.Stdout,
-		Force:    true,
+		SingleBranch:      true,
+		Auth:              skey,
+		RecurseSubmodules: git.DefaultSubmoduleRecursionDepth,
+		Progress:          os.Stdout,
+		Force:             true,
 	})
 	if err != nil {
-		log.Printf("[Pull] Failed pull remote repository: ", err.Error())
+		log.Printf("[Pull] Failed pull remote repository: %s", err)
 	}
 }

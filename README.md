@@ -17,10 +17,5 @@ go build
 ### Usage
 
 ```
-./git-sync -repo="<url to remote repository>" -path="<path to directory for clone repository>" -time=<timeout for check update (seconds, default - 60 sec)>
+./git-sync -repo="<url to remote repository>" -dir="<path to directory for clone repository>" -key="<path to private ssh key for auth to the remote repository>" -time=<timeout for check update (seconds, default - 60 sec)>
 ```  
-  
-### TODO
-  
-* ssh auth
-* http auth
