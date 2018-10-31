@@ -7,11 +7,19 @@ Real-time local repository update (every n seconds):
 * Checks repository updates every n seconds;
 * As soon as the remote repository is updated - makes "git pull" in the specified directory.
 
+### Getting
+```
+git clone https://github.com/eikoshelev/git-sync.git
+```
+### Building
+```
+cd git-sync && go build
+```
 ### Usage
-
 ```
 ./git-sync -repo <url to remote repo> -dir <destination directory> -key <the path to the private ssh key for authentication (for SSH)> -timer <update check interval (60 seconds by default)> -login <login for HTTP> -pass <password for HTTP>
-```  
+```
+
 * git-sync defaults to using environment variables (for docker/kubernetes) if the flags are not explicitly set at startup:
 
 | env variable   | flag |
@@ -23,7 +31,7 @@ Real-time local repository update (every n seconds):
 |`SSH_KNOWN_HOSTS` | - |
 |`GIT_HTTP_LOGIN` | -login |
 |`GIT_HTTP_PASSWORD` | -pass |
----
+  
 * Description of the flags used: ```./git-sync -h```
 ```
 $ ./git-sync -h
