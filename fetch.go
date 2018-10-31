@@ -8,19 +8,19 @@ import (
 )
 
 // fetchCheck - chek update repository
-func gitFetch(repos *git.Repository, url, key string) {
+func gitFetch(repo *git.Repository, data Data) {
 
-	skey, err := gitAuth(url, key)
+	auth, err := gitAuth(data.RemoteRepo, data.SSHkey, data.Login, data.Password)
 	if err != nil {
 		log.Fatalf("[Fetch Auth] Failed auth: %s", err)
 	}
-	err = repos.Fetch(&git.FetchOptions{
-		Auth:     skey,
+	err = repo.Fetch(&git.FetchOptions{
+		Auth:     auth,
 		Progress: os.Stdout,
 		Force:    true,
 	})
 	if err != git.NoErrAlreadyUpToDate {
 		log.Println("[Fetch] Update detected, pulling... ")
-		gitPull(repos, url, key)
+		gitPull(repo, data)
 	}
 }

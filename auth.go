@@ -13,11 +13,11 @@ import (
 )
 
 // gitAuth - ssh/http auth
-func gitAuth(uri string, key string) (transport.AuthMethod, error) {
+func gitAuth(url, key, login, pass string) (transport.AuthMethod, error) {
 
 	var auth transport.AuthMethod
 
-	ep, err := transport.NewEndpoint(uri)
+	ep, err := transport.NewEndpoint(url)
 	if err != nil {
 		return nil, err
 	}
@@ -45,11 +45,13 @@ func gitAuth(uri string, key string) (transport.AuthMethod, error) {
 	}
 
 	// http auth
-	if strings.HasPrefix(ep.Protocol, "http") && ep.User != "" && ep.Password != "" {
+	if strings.HasPrefix(ep.Protocol, "http") && login != "" && pass != "" {
 		auth = &githttp.BasicAuth{
-			Username: ep.User,
-			Password: ep.Password,
+			Username: login,
+			Password: pass,
 		}
+	} else {
+		log.Fatalf("Missing login and/or password for HTTP auth: %s", err)
 	}
 
 	return auth, nil

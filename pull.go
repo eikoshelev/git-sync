@@ -8,20 +8,21 @@ import (
 )
 
 // pullRepo - pulling remote repository if there is an update
-func gitPull(repository *git.Repository, url, key string) {
+func gitPull(repo *git.Repository, data Data) {
 
-	skey, err := gitAuth(url, key)
+	auth, err := gitAuth(data.RemoteRepo, data.SSHkey, data.Login, data.Password)
 	if err != nil {
 		log.Fatalf("[Pull Auth] Failed auth: %s", err)
 	}
-	wTree, err := repository.Worktree()
+
+	wTree, err := repo.Worktree()
 	if err != nil {
 		log.Fatalf("[Pull] Failed get work tree: %s", err)
 	}
 
 	err = wTree.Pull(&git.PullOptions{
 		//SingleBranch:      true,
-		Auth: skey,
+		Auth: auth,
 		//RecurseSubmodules: git.DefaultSubmoduleRecursionDepth,
 		Progress: os.Stdout,
 		Force:    true,

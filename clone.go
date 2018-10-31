@@ -9,20 +9,20 @@ import (
 )
 
 // cloneRepo - cloning remote repository
-func gitClone(key, url, dir string, timer int64) {
+func gitClone(data Data) {
 
-	skey, err := gitAuth(url, key)
+	auth, err := gitAuth(data.RemoteRepo, data.SSHkey, data.Login, data.Password)
 	if err != nil {
 		log.Fatalf("[Clone Auth] Failed auth: %s", err)
 	}
 
 	// check repository availability in local directory
-	repo, err := git.PlainOpen(dir)
+	repo, err := git.PlainOpen(data.LocalPath)
 	if err != nil {
-		log.Printf("Repository not found in '%s' cloning...", dir)
-		repo, err = git.PlainClone(dir, false, &git.CloneOptions{
-			URL:  url,
-			Auth: skey,
+		log.Printf("Repository not found in '%s' cloning...", data.LocalPath)
+		repo, err = git.PlainClone(data.LocalPath, false, &git.CloneOptions{
+			URL:  data.RemoteRepo,
+			Auth: auth,
 			//SingleBranch:      true,
 			//RecurseSubmodules: git.DefaultSubmoduleRecursionDepth,
 			Progress: os.Stdout,
@@ -31,13 +31,11 @@ func gitClone(key, url, dir string, timer int64) {
 			log.Fatalf("[Clone] Failed clone remote repository: %s", err)
 		}
 	} else {
-		log.Printf("Repository found in '%s' opening...", dir)
+		log.Printf("Repository found in '%s' opening...", data.LocalPath)
 	}
 
-	go func() {
-		for {
-			gitFetch(repo, url, key)
-			time.Sleep(time.Duration(timer) * time.Second)
-		}
-	}()
+	for {
+		gitFetch(repo, data)
+		time.Sleep(time.Duration(data.CheckTime) * time.Second)
+	}
 }
