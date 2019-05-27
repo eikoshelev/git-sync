@@ -13,7 +13,7 @@ func gitPull(repo *git.Repository, data Data) {
 
 	auth, err := gitAuth(data.RemoteRepo, data.SSHkey, data.Login, data.Password)
 	if err != nil {
-		log.Printf("[Pull Auth] Failed auth: %v\n", err)
+		log.Fatalf("[Pull Auth] Failed auth: %v\n", err)
 	}
 
 	wTree, err := repo.Worktree()
