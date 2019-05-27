@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"os"
 
 	git "gopkg.in/src-d/go-git.v4"
 )
@@ -12,15 +11,17 @@ func gitFetch(repo *git.Repository, data Data) {
 
 	auth, err := gitAuth(data.RemoteRepo, data.SSHkey, data.Login, data.Password)
 	if err != nil {
-		log.Fatalf("[Fetch Auth] Failed auth: %s", err)
+		log.Fatalf("[Fetch] Failed auth: %v\n", err)
 	}
 	err = repo.Fetch(&git.FetchOptions{
-		Auth:     auth,
-		Progress: os.Stdout,
-		Force:    true,
+		Auth:  auth,
+		Force: true,
+		//Progress: os.Stdout,
 	})
 	if err != git.NoErrAlreadyUpToDate {
-		log.Println("[Fetch] Update detected, pulling... ")
+		log.Printf("[Fetch] Update detected, pulling...\n")
 		gitPull(repo, data)
+	} else if err != git.NoErrAlreadyUpToDate && err != nil {
+		log.Printf("[Fetch] Error: %v\n", err)
 	}
 }

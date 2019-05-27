@@ -1,4 +1,4 @@
-# git-sync
+# GIT-sync
 
 ### Description
   
@@ -17,7 +17,14 @@ cd git-sync && go build
 ```
 ### Usage
 ```
-./git-sync -repo <url to remote repo> -dir <destination directory> -key <the path to the private ssh key for authentication (for SSH)> -timer <update check interval (60 seconds by default)> -login <login for HTTP> -pass <password for HTTP>
+./git-sync -repo <URL to remote repository> \
+           -branch <branch of the monitored repository (default - master)>
+           -dir <path to local directory for repository> \
+           -key <path to private ssh key for auth to the remote repository (SSH protocol)> \
+           -login <login for HTTP auth to the remote repository (HTTP protocol)> \
+           -pass <password for HTTP auth to the remote repository (HTTP protocol)> \
+           -timer <timeout for check update (seconds)> \
+           -force <force pool if local repository is changed (default - false)>
 ```
 
 * git-sync defaults to using environment variables (for docker/kubernetes) if the flags are not explicitly set at startup:
@@ -31,21 +38,7 @@ cd git-sync && go build
 |`SSH_KNOWN_HOSTS` | - |
 |`GIT_HTTP_LOGIN` | -login |
 |`GIT_HTTP_PASSWORD` | -pass |
+|`GIT_FORCE_PULL`  | -force |
+|`GIT_SYNC_BRANCH`  | -branch |
   
 * Description of the flags used: ```./git-sync -h```
-```
-$ ./git-sync -h
-Usage of ./git-sync:
-  -dir string
-    	Path to local directory for repository
-  -key string
-    	Path to private ssh key for auth to the remote repository
-  -login string
-    	Login for HTTP auth to the remote repository
-  -pass string
-    	Password for HTTP auth to the remote repository
-  -repo string
-    	URL to remote repository
-  -timer string
-    	Timeout for check update (seconds)
-```
