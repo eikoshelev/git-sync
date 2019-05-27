@@ -1,4 +1,4 @@
-# GIT-sync
+# git-sync
 
 ### Description
   
