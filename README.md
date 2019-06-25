@@ -44,3 +44,8 @@ cd git-sync && go build
 |`GIT_SYNC_BRANCH`  | -branch |
   
 * Description of the flags used: ```./git-sync -h```
+
+### Docker container
+```
+docker pull eikoshelev/git-sync
+```
