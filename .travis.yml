@@ -1,4 +1,15 @@
 language: go
-script: go get github.com/eikoshelev/git-sync && go get gopkg.in/src-d/go-git.v4 && golang.org/x/crypto/ssh && go build
+go:
+  - 1.12.x
+  - master
+env:
+  global:
+    - GOOS=linux
+    - GOARCH=amd64
+script: 
+  - go get github.com/eikoshelev/git-sync
+  - go get gopkg.in/src-d/go-git.v4
+  - go get golang.org/x/crypto/ssh
+  - go build
 notifications:
   email: true
