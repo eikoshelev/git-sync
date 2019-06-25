@@ -1,0 +1,4 @@
+language: go
+script: go get github.com/eikoshelev/git-sync && go get gopkg.in/src-d/go-git.v4 && golang.org/x/crypto/ssh && go build
+notifications:
+  email: true
