@@ -2,7 +2,7 @@
 
 # git-sync
 
-:recycle: Easy to use and stable update of your repository!
+:recycle: Easy to use and stable update of your repository.
 
 ### Description
   
