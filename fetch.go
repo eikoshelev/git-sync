@@ -3,25 +3,22 @@ package main
 import (
 	"log"
 
-	git "gopkg.in/src-d/go-git.v4"
+	go_git "gopkg.in/src-d/go-git.v4"
 )
 
-// fetchCheck - chek update repository
-func gitFetch(repo *git.Repository, data Data) {
+// chek update repository
+func (g *git) gitFetch() {
 
-	auth, err := gitAuth(data.RemoteRepo, data.SSHkey, data.Login, data.Password)
-	if err != nil {
-		log.Fatalf("[Fetch] Failed auth: %v\n", err)
-	}
-	err = repo.Fetch(&git.FetchOptions{
-		Auth:  auth,
-		Force: true,
+	err := g.Repo.Fetch(&go_git.FetchOptions{
+		Auth: g.Auth,
+		//Force: true,
 		//Progress: os.Stdout,
 	})
-	if err != git.NoErrAlreadyUpToDate {
-		log.Printf("[Fetch] Update detected, pulling...\n")
-		gitPull(repo, data)
-	} else if err != git.NoErrAlreadyUpToDate && err != nil {
-		log.Printf("[Fetch] Error: %v\n", err)
+
+	if err != go_git.NoErrAlreadyUpToDate {
+		log.Printf("[Fetch] Update detected, pulling..\n")
+		g.gitPull()
+	} else if err != go_git.NoErrAlreadyUpToDate && err != nil {
+		log.Printf("[Fetch] Error: %s\n", err.Error())
 	}
 }

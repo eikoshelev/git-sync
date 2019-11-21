@@ -4,66 +4,60 @@ import (
 	"log"
 	"os"
 
-	git "gopkg.in/src-d/go-git.v4"
+	go_git "gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 )
 
-// pullRepo - pulling remote repository if there is an update
-func gitPull(repo *git.Repository, data Data) {
+// pulling remote repository if there is an update
+func (g *git) gitPull() {
 
-	auth, err := gitAuth(data.RemoteRepo, data.SSHkey, data.Login, data.Password)
+	wTree, err := g.Repo.Worktree()
 	if err != nil {
-		log.Fatalf("[Pull Auth] Failed auth: %v\n", err)
+		log.Fatalf("[Pull] Failed get work tree: %s\n", err.Error())
 	}
 
-	wTree, err := repo.Worktree()
-	if err != nil {
-		log.Fatalf("[Pull] Failed get work tree: %v\n", err)
-	}
-
-	err = wTree.Pull(&git.PullOptions{
-		ReferenceName: plumbing.ReferenceName("refs/heads/" + data.Branch),
-		Auth:          auth,
+	err = wTree.Pull(&go_git.PullOptions{
+		ReferenceName: plumbing.ReferenceName(g.Branch),
+		Auth:          g.Auth,
 		SingleBranch:  true,
 		Progress:      os.Stdout,
-		Force:         true,
+		//Force:         true,
 	})
 
 	if err == nil {
 		log.Printf("[Pull] Success!\n")
 	} else {
 		switch err {
-		case git.ErrUnstagedChanges:
-			if data.Force != true {
-				log.Printf("[Pull] Error: %v (local repository changed). Rule for forced pull - %v. Can`t force pull.\n", err, data.Force)
-			} else {
-				log.Printf("[Pull] Info: %v (local repository changed). Rule for forced pull - %v\n. Force pulling...", err, data.Force)
-				err := wTree.Reset(&git.ResetOptions{
-					Mode: git.ResetMode(1),
+		case go_git.ErrUnstagedChanges:
+			if g.Force {
+				log.Printf("[Pull] Info: %s (local repository changed).\nRule for forced pull - %v. Force pulling...", err.Error(), g.Force)
+				err := wTree.Reset(&go_git.ResetOptions{
+					Mode: go_git.ResetMode(1),
 				})
 				if err == nil {
 					log.Printf("[Pull] Success!\n")
 				} else {
-					log.Printf("[Pull] Error: %v\n", err)
+					log.Printf("[Pull] Error: %s\n", err.Error())
 				}
+			} else {
+				log.Printf("[Pull] Error: %s (local repository changed).\nRule for forced pull - %v. Can`t force pull.\n", err.Error(), g.Force)
 			}
-		case git.NoErrAlreadyUpToDate:
-			log.Printf("[Pull] Nothing to pull: %v\n", err)
+		case go_git.NoErrAlreadyUpToDate:
+			log.Printf("[Pull] Nothing to pull: %s\n", err.Error())
 		default:
-			log.Printf("[Pull] Error: %v\n", err)
+			log.Printf("[Pull] Error: %s\n", err.Error())
 		}
 	}
 
 	// show last commit
-	ref, err := repo.Head()
+	ref, err := g.Repo.Head()
 	if err != nil {
-		log.Printf("Failed get reference where HEAD is pointing to: %v\n", err)
+		log.Printf("Failed get reference where HEAD is pointing to: %s\n", err.Error())
 	}
-
-	commit, err := repo.CommitObject(ref.Hash())
+	commit, err := g.Repo.CommitObject(ref.Hash())
 	if err != nil {
-		log.Printf("[Pull] Can`t show last commit: %v\n", err)
+		log.Printf("[Pull] Can`t show last commit: %s\n", err.Error())
 	} else {
-		log.Printf("[Pull] Last commit: %v\n", commit)
+		log.Printf("[Pull] Last commit: %s\n", commit)
 	}
 }

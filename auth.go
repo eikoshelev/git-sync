@@ -12,47 +12,38 @@ import (
 	gitssh "gopkg.in/src-d/go-git.v4/plumbing/transport/ssh"
 )
 
-// gitAuth - ssh/http auth
-func gitAuth(url, key, login, pass string) (transport.AuthMethod, error) {
+// SSH or HTTP auth
+func (g *git) gitAuth() {
 
-	var auth transport.AuthMethod
-
-	ep, err := transport.NewEndpoint(url)
+	ep, err := transport.NewEndpoint(g.RemoteRepo)
 	if err != nil {
-		return nil, err
+		log.Fatalf("[Auth] Failed represents a Git URL in any supported protocol: %s\n", err.Error())
 	}
 
-	// ssh auth
-	if strings.HasPrefix(ep.Protocol, "ssh") && key != "" {
-		var signer ssh.Signer
-
-		sshFile, err := os.Open(key)
+	if strings.HasPrefix(ep.Protocol, "ssh") {
+		keyFile, err := os.Open(g.SSHkey)
 		if err != nil {
-			log.Fatalf("[Auth] Failed open SSH key file: %s", err)
-		}
-		sshB, err := ioutil.ReadAll(sshFile)
-		if err != nil {
-			log.Fatalf("[Auth] Failed read SSH key: %s", err)
+			log.Fatalf("[Auth] Failed open SSH key file: %s\n", err.Error())
 		}
 
-		signer, err = ssh.ParsePrivateKey(sshB)
+		key, err := ioutil.ReadAll(keyFile)
 		if err != nil {
-			log.Fatalf("[Auth] Failed parse SSH key: %s", err)
+			log.Fatalf("[Auth] Failed read SSH key: %s\n", err.Error())
 		}
 
-		sshAuth := &gitssh.PublicKeys{User: "git", Signer: signer}
-		return sshAuth, nil
-	}
+		signer, err := ssh.ParsePrivateKey(key)
+		if err != nil {
+			log.Fatalf("[Auth] Failed parse SSH key: %s\n", err.Error())
+		}
 
-	// http auth
-	if strings.HasPrefix(ep.Protocol, "http") && login != "" && pass != "" {
-		auth = &githttp.BasicAuth{
-			Username: login,
-			Password: pass,
+		g.Auth = &gitssh.PublicKeys{
+			User:   "git",
+			Signer: signer,
 		}
 	} else {
-		log.Fatalf("Missing login and/or password for HTTP auth: %s", err)
+		g.Auth = &githttp.BasicAuth{
+			Username: g.Login,
+			Password: g.Password,
+		}
 	}
-
-	return auth, nil
 }

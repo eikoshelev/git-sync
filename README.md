@@ -19,29 +19,43 @@ cd git-sync && go build
 ```
 ### Usage
 ```
-./git-sync -repo <URL to remote repository> \
-           -branch <branch of the monitored repository (default - master)>
-           -dir <path to local directory for repository> \
-           -key <path to private ssh key for auth to the remote repository (SSH protocol)> \
-           -login <login for HTTP auth to the remote repository (HTTP protocol)> \
-           -pass <password for HTTP auth to the remote repository (HTTP protocol)> \
-           -timer <timeout for check update (seconds)> \
-           -force <force pool if local repository is changed (default - false)>
+./git-sync -h
+Usage of ./git-sync:
+  -branch string
+    	Remote branch for pull. NOTE (!): If the 'tag' flag/env is specified, the 'branch' flag/env will be ignored
+  -dir string
+    	Path to local directory for repository
+  -force string
+    	Forced pull with changed local repository
+  -key string
+    	Path to private SSH key for auth to the remote repository
+  -login string
+    	Login for HTTP auth to the remote repository
+  -pass string
+    	Password for HTTP auth to the remote repository
+  -repo string
+    	URL to remote repository
+  -tag string
+    	Remote tag for pull. NOTE (!): If the tag flag/env is specified, the specified branch flag/env will be ignored
+  -timer string
+    	Timeout for check update, default — 1m
 ```
 
 * git-sync defaults to using environment variables (for docker/kubernetes) if the flags are not explicitly set at startup:
 
-| env variable   | flag |
-|:---------------|:------
-|`GIT_SYNC_REPO` | -repo |
-|`GIT_SYNC_ROOT` | -dir |
-|`GIT_SYNC_WAIT` | -timer |
-|`GIT_SSH_KEY_PATH` | -key |
-|`SSH_KNOWN_HOSTS` | - |
-|`GIT_HTTP_LOGIN` | -login |
-|`GIT_HTTP_PASSWORD` | -pass |
-|`GIT_FORCE_PULL`  | -force |
-|`GIT_SYNC_BRANCH`  | -branch |
+| **env variable**   | **flag** | **example** |
+|:---------------|:------|:--------|
+|**`GIT_SYNC_REPO`** | **-repo** | SSH - "git@github.com:eikoshelev/git-sync.git" |
+|                |       | HTTP - "https://github.com/eikoshelev/git-sync.git" |
+|**`GIT_SYNC_ROOT`** | **-dir** | "/path/to/your/folder/for/repo"
+|**`GIT_SYNC_WAIT`** | **-timer** | "1s", "2m", "3h", etc..
+|**`GIT_SSH_KEY_PATH`** | **-key** | "~/.ssh/id_rsa"
+|**`SSH_KNOWN_HOSTS`** | **-** | **-**
+|**`GIT_HTTP_LOGIN`** | **-login** | "login for http"
+|**`GIT_HTTP_PASSWORD`** | **-pass** | "password for http"
+|**`GIT_FORCE_PULL`**  |  **-force** | allowed - "true", not allowed - "false"
+|**`GIT_SYNC_BRANCH`** | **-branch** | "develop", "patch", etc..
+|**`GIT_SYNC_TAG`** | **-tag** | `if the tag flag/env is specified, the specified branch flag/env will be ignored!`
   
 * Description of the flags used: ```./git-sync -h```
 
