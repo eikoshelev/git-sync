@@ -20,6 +20,9 @@ git clone https://github.com/eikoshelev/git-sync.git
 cd git-sync && go build
 ```
 ### Usage
+
+* Description of the flags used: ```./git-sync -h```
+
 ```
 ./git-sync -h
 Usage of ./git-sync:
@@ -58,8 +61,6 @@ Usage of ./git-sync:
 |`GIT_FORCE_PULL`  |  -force | `allowed - "true", not allowed - "false"` |
 |`GIT_SYNC_BRANCH` | -branch | `"develop", "patch", etc`
 |`GIT_SYNC_TAG` | -tag | `if the tag flag/env is specified, the branch flag/env will be ignored!`
-  
-* Description of the flags used: ```./git-sync -h```
 
 ### Docker container
 ```
