@@ -7,6 +7,7 @@
 ### Description
   
 Real-time local repository update (every N time):
+* Authorization by HTTP (login/password) or SSH (private key);
 * When starting, it checks the presence of the repository at the specified path (if the repository already exists, it starts checking for updates, if not, it will first clone);
 * Checks repository updates every N time;
 * As soon as the remote repository is updated - makes `git pull` in the specified directory.
