@@ -45,17 +45,17 @@ Usage of ./git-sync:
 
 | **env variable**   | **flag** | **example** |
 |:---------------|:------|:--------|
-|**`GIT_SYNC_REPO`** | **-repo** | `SSH - "git@github.com:eikoshelev/git-sync.git"` |
+|`GIT_SYNC_REPO` | -repo | `SSH - "git@github.com:eikoshelev/git-sync.git"` |
 |                |       | `HTTP - "https://github.com/eikoshelev/git-sync.git"` |
-|**`GIT_SYNC_ROOT`** | **-dir** | `"/path/to/your/folder/for/repo"` |
-|**`GIT_SYNC_WAIT`** | **-timer** | `"1s", "2m", "3h", etc` |
-|**`GIT_SSH_KEY_PATH`** | **-key** | `"/$HOME/.ssh/id_rsa"` |
-|**`SSH_KNOWN_HOSTS`** | **-** | `-`
-|**`GIT_HTTP_LOGIN`** | **-login** | `<login for http>`
-|**`GIT_HTTP_PASSWORD`** | **-pass** | `<password for http`
-|**`GIT_FORCE_PULL`**  |  **-force** | `allowed - "true", not allowed - "false"` |
-|**`GIT_SYNC_BRANCH`** | **-branch** | `"develop", "patch", etc`
-|**`GIT_SYNC_TAG`** | **-tag** | `if the tag flag/env is specified, the branch flag/env will be ignored!`
+|`GIT_SYNC_ROOT` | -dir | `"/path/to/your/folder/for/repo"` |
+|`GIT_SYNC_WAIT` | -timer | `"1s", "2m", "3h", etc` |
+|`GIT_SSH_KEY_PATH` | -key | `"/$HOME/.ssh/id_rsa"` |
+|`SSH_KNOWN_HOSTS` | - | `-`
+|`GIT_HTTP_LOGIN` | -login | `<login for http>`
+|`GIT_HTTP_PASSWORD` | -pass | `<password for http`
+|`GIT_FORCE_PULL`  |  -force | `allowed - "true", not allowed - "false"` |
+|`GIT_SYNC_BRANCH` | -branch | `"develop", "patch", etc`
+|`GIT_SYNC_TAG` | -tag | `if the tag flag/env is specified, the branch flag/env will be ignored!`
   
 * Description of the flags used: ```./git-sync -h```
 
