@@ -4,10 +4,10 @@
 
 ### Description
   
-Real-time local repository update (every n seconds):
+Real-time local repository update (every n time):
 * When starting, it checks the presence of the repository at the specified path (if the repository already exists, it starts checking for updates, if not, it will first clone);
-* Checks repository updates every n seconds;
-* As soon as the remote repository is updated - makes "git pull" in the specified directory.
+* Checks repository updates every n time;
+* As soon as the remote repository is updated - makes `git pull` in the specified directory.
 
 ### Getting
 ```
@@ -41,7 +41,7 @@ Usage of ./git-sync:
     	Timeout for check update, default — 1m
 ```
 
-* git-sync defaults to using environment variables (for docker/kubernetes) if the flags are not explicitly set at startup:
+* git-sync defaults to using environment variables if the flags are not explicitly set at startup:
 
 | **env variable**   | **flag** | **example** |
 |:---------------|:------|:--------|
@@ -49,12 +49,12 @@ Usage of ./git-sync:
 |                |       | `HTTP - "https://github.com/eikoshelev/git-sync.git"` |
 |**`GIT_SYNC_ROOT`** | **-dir** | `"/path/to/your/folder/for/repo"` |
 |**`GIT_SYNC_WAIT`** | **-timer** | `"1s", "2m", "3h", etc` |
-|**`GIT_SSH_KEY_PATH`** | **-key** | `"~/.ssh/id_rsa"` |
+|**`GIT_SSH_KEY_PATH`** | **-key** | `"/$HOME/.ssh/id_rsa"` |
 |**`SSH_KNOWN_HOSTS`** | **-** | `-`
 |**`GIT_HTTP_LOGIN`** | **-login** | `<login for http>`
 |**`GIT_HTTP_PASSWORD`** | **-pass** | `<password for http`
 |**`GIT_FORCE_PULL`**  |  **-force** | `allowed - "true", not allowed - "false"` |
-|**`GIT_SYNC_BRANCH`** | **-branch** | `"develop", "patch", etc..`
+|**`GIT_SYNC_BRANCH`** | **-branch** | `"develop", "patch", etc`
 |**`GIT_SYNC_TAG`** | **-tag** | `if the tag flag/env is specified, the branch flag/env will be ignored!`
   
 * Description of the flags used: ```./git-sync -h```
