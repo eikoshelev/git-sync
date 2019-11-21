@@ -6,9 +6,9 @@
 
 ### Description
   
-Real-time local repository update (every n time):
+Real-time local repository update (every N time):
 * When starting, it checks the presence of the repository at the specified path (if the repository already exists, it starts checking for updates, if not, it will first clone);
-* Checks repository updates every n time;
+* Checks repository updates every N time;
 * As soon as the remote repository is updated - makes `git pull` in the specified directory.
 
 ### Getting
