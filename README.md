@@ -1,12 +1,12 @@
 [![Build Status](https://travis-ci.org/eikoshelev/git-sync.svg?branch=master)](https://travis-ci.org/eikoshelev/git-sync)
 ![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/eikoshelev/git-sync)
-  
-![alt text](assets/git-sync.png)
 
 # git-sync
 
 :recycle: Easy to use and stable update of your repository.
-
+  
+![alt text](assets/git-sync.png)
+  
 ### Description
   
 Real-time local repository update (every N time):
