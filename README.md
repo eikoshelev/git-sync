@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/eikoshelev/git-sync.svg?branch=master)](https://travis-ci.org/eikoshelev/git-sync)
+![alt text](assets/git-sync.png)
 
 # git-sync
 
