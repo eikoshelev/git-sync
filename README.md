@@ -53,19 +53,19 @@ Usage of ./git-sync:
 ```
 
 * **git-sync** defaults to using environment variables if the flags are not explicitly set at startup:
-> **if the tag flag/env is specified, the branch flag/env will be ignored!**
+> **if the tag flag/env is specified, specified the branch flag/env will be ignored!**
 
 | **env variable**   | **flag** | **example** |
 |:---------------|:------|:--------|
-|`GIT_SYNC_REPO` | -repo | `SSH - "git@github.com:eikoshelev/git-sync.git"` |
+|`GIT_SYNC_REPO` | `-repo` | `SSH - "git@github.com:eikoshelev/git-sync.git"` |
 |                |       | `HTTP - "https://github.com/eikoshelev/git-sync.git"` |
-|`GIT_SYNC_ROOT` | -dir | `"/path/to/your/folder/for/repo"` |
-|`GIT_SYNC_WAIT` | -timer | `"1s", "2m", "3h", etc` |
-|`GIT_SSH_KEY_PATH` | -key | `"/$HOME/.ssh/id_rsa"` |
-|`SSH_KNOWN_HOSTS` | - | `"/$HOME/.ssh/known_hosts"`
-|`GIT_HTTP_LOGIN` | -login | `<login for http>`
-|`GIT_HTTP_PASSWORD` | -pass | `<password for http>`
-|`GIT_FORCE_PULL`  |  -force | `allowed - "true", not allowed - "false"` |
+|`GIT_SYNC_ROOT` | `-dir` | `"/path/to/your/folder/for/repo"` |
+|`GIT_SYNC_WAIT` | `-timer` | `"1s", "2m", "3h", etc` |
+|`GIT_SSH_KEY_PATH` | `-key` | `"/$HOME/.ssh/id_rsa"` |
+|`SSH_KNOWN_HOSTS` | `—` | `"/$HOME/.ssh/known_hosts"`
+|`GIT_HTTP_LOGIN` | `-login` | `<login for http>`
+|`GIT_HTTP_PASSWORD` | `-pass` | `<password for http>`
+|`GIT_FORCE_PULL`  |  `-force` | `allowed - "true", not allowed - "false"` |
 |`GIT_SYNC_BRANCH` | `-branch` | `"develop", "patch", etc`
-|`GIT_SYNC_TAG` | -tag | `"v1.0.0", "v2.0", "v3.0-stable", etc`
+|`GIT_SYNC_TAG` | `-tag` | `"v1.0.0", "v2.0", "v3.0-stable", etc`
 
