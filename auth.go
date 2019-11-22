@@ -25,6 +25,8 @@ func (g *git) gitAuth() {
 		if err != nil {
 			log.Fatalf("[Auth] Failed open SSH key file: %s\n", err.Error())
 		}
+		
+		defer keyFile.Close()
 
 		key, err := ioutil.ReadAll(keyFile)
 		if err != nil {
