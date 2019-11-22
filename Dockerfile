@@ -1,4 +1,10 @@
-FROM alpine:3.8 
+FROM golang:alpine AS build
+WORKDIR /src
+ADD . .
+WORKDIR /src
+RUN go build -o git-sync
 
-COPY  git-sync /bin/
+FROM alpine
+WORKDIR /bin
+COPY --from=build /src/git-sync .
 CMD ["git-sync"]
