@@ -59,7 +59,7 @@ Usage of ./git-sync:
 If the tag flag/env is specified, specified the branch flag/env will be ignored!
 ```
 
-| **env variable**   | **flag** | **for example** |
+| **Environment Variable**   | **Flag** | **Example** |
 | --- | --- | --- |
 |`GIT_SYNC_REPO`| -repo | SSH - "git@github.com:eikoshelev/git-sync.git" |
 |                |       | HTTP - "https://github.com/eikoshelev/git-sync.git" |
