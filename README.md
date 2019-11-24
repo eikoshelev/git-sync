@@ -16,60 +16,36 @@ Real-time local repository update (every N time):
 * As soon as the remote repository is updated - makes ```git pull``` in the specified directory.
 
 ### Getting
-```
+```sh
 git clone https://github.com/eikoshelev/git-sync.git
 ```
 ### Building
-```
+```sh
 cd git-sync && go build
 ```
 ### Docker container
-```
+```sh
 docker pull eikoshelev/git-sync
 ```
 ### Usage
 
 * Description of the flags used: ```./git-sync -h```
 
-```
-./git-sync -h
-Usage of ./git-sync:
-  -branch string
-    	Remote branch for pull. NOTE (!): If the 'tag' flag/env is specified, the 'branch' flag/env will be ignored
-  -dir string
-    	Path to local directory for repository
-  -force string
-    	Forced pull with changed local repository
-  -key string
-    	Path to private SSH key for auth to the remote repository
-  -login string
-    	Login for HTTP auth to the remote repository
-  -pass string
-    	Password for HTTP auth to the remote repository
-  -repo string
-    	URL to remote repository
-  -tag string
-    	Remote tag for pull. NOTE (!): If the tag flag/env is specified, the specified branch flag/env will be ignored
-  -timer string
-    	Timeout for check update, default — 1m
-```
-
 * **git-sync** defaults to using environment variables if the flags are not explicitly set at startup:
-```
-If the tag flag/env is specified, specified the branch flag/env will be ignored!
-```
-
-| **Environment Variable**   | **Flag** | **Example** |
+  
+| **Environment Variable** | **Flag** | **Example** |
 | --- | --- | --- |
-|`GIT_SYNC_REPO`| -repo | SSH - "git@github.com:eikoshelev/git-sync.git" |
-|                |       | HTTP - "https://github.com/eikoshelev/git-sync.git" |
-|`GIT_SYNC_ROOT`| -dir | "/path/to/your/folder/for/repo" |
-|`GIT_SYNC_WAIT`| -timer | "1s", "2m", "3h", etc |
-|`GIT_SSH_KEY_PATH`| -key | "/$HOME/.ssh/id_rsa" |
-|`SSH_KNOWN_HOSTS`| — | "/$HOME/.ssh/known_hosts" |
-|`GIT_HTTP_LOGIN`| -login | username |
-|`GIT_HTTP_PASSWORD`| -pass | password |
-|`GIT_FORCE_PULL`|  -force | allowed - "true", not allowed - "false" |
-|`GIT_SYNC_BRANCH`| -branch | "develop", "patch", etc |
-|`GIT_SYNC_TAG`| -tag | "v1.0.0", "v2.0", "v3.0-stable", etc |
+|`GIT_SYNC_REPO`    | -repo   | URL to remote repository. If the 'tag' flag/env is specified, the 'branch' flag/env will be ignored! For example: `git@github.com:eikoshelev/git-sync.git` - for SSH, `https://github.com/eikoshelev/git-sync.git` - for HTTP 
+|`GIT_SYNC_ROOT`    | -dir    | Path to local directory for repository: `/path/to/your/local/directory` 
+|`GIT_SYNC_WAIT`    | -timer  | Timeout for check update (fetch), default — 1m, for example `1s`, `2m`, `3h`, etc 
+|`GIT_SSH_KEY_PATH` | -key    | Path to private SSH key for auth to the remote repository, for example - `/$HOME/.ssh/id_rsa` 
+|`SSH_KNOWN_HOSTS`  | -       | Path to `known_hosts` file for work with remote repository, default - `"/$HOME/.ssh/known_hosts"`
+|`GIT_HTTP_LOGIN`   | -login  | Login for HTTP auth to the remote repository 
+|`GIT_HTTP_PASSWORD`| -pass   | Password for HTTP auth to the remote repository 
+|`GIT_FORCE_PULL`   |  -force | Forced pull with changed local repository: allowed - `true`, not allowed (default) - `false` 
+|`GIT_SYNC_BRANCH`  | -branch | Remote branch for pull. **NOTE: If the 'tag' flag/env is specified, the 'branch' flag/env will be ignored!**, for example - `develop`, `patch`, etc 
+|`GIT_SYNC_TAG`     | -tag    | Remote tag for pull. **NOTE: If the tag flag/env is specified, the specified branch flag/env will be ignored!**, for example - `"v1.0.0"`, `"v2.0"`, `"v3.0-stable"`, etc 
 
+## What else?
+
+Open an issue or PR if you have more suggestions, questions or ideas about what to add.
