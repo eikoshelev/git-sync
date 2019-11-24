@@ -36,7 +36,7 @@ $ docker run -d --name git-sync eikoshelev/git-sync
 
 * **git-sync** defaults to using environment variables if the flags are not explicitly set at startup:
   
-| **Environment Variable** | **Flag** | **Example** |
+| **Environment Variable** | **Flag** | **Description** |
 | --- | --- | --- |
 |`GIT_SYNC_REPO`    | -repo   | URL to remote repository, example: `git@github.com:eikoshelev/git-sync.git` - for SSH, `https://github.com/eikoshelev/git-sync.git` - for HTTP 
 |`GIT_SYNC_ROOT`    | -dir    | Path to local directory for repository: `/path/to/your/local/directory` 
@@ -45,7 +45,7 @@ $ docker run -d --name git-sync eikoshelev/git-sync
 |`SSH_KNOWN_HOSTS`  | -       | Path to `known_hosts` file for work with remote repository, default - `/$HOME/.ssh/known_hosts`
 |`GIT_HTTP_LOGIN`   | -login  | Login for HTTP auth to the remote repository 
 |`GIT_HTTP_PASSWORD`| -pass   | Password for HTTP auth to the remote repository 
-|`GIT_FORCE_PULL`   |  -force | Forced pull with changed local repository: allowed - `true`, not allowed (default) - `false` 
+|`GIT_FORCE_PULL`   | -force  | Forced pull with changed local repository: allowed - `true`, not allowed (default) - `false` 
 |`GIT_SYNC_BRANCH`  | -branch | Remote branch for pull, for example - `develop`, `patch`, etc. **NOTE: If the 'tag' flag/env is specified, the 'branch' flag/env will be ignored!**
 |`GIT_SYNC_TAG`     | -tag    | Remote tag for pull, for example - `"v1.0.0"`, `"v2.0"`, `"v3.0-stable"`, etc. **NOTE: If the tag flag/env is specified, the specified branch flag/env will be ignored!**
 
