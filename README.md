@@ -13,7 +13,7 @@ Real-time local repository update (every N time):
 * **`Auth`** — Authorization by HTTP (login/password) or SSH (private key);
 * **`Clone`** — When starting, it checks the presence of the repository at the specified path (if the repository already exists, it starts checking for updates, if not, it will first clone);
 * **`Fetch`** — Checks repository updates every N time;
-* **`Pull`** — As soon as the remote repository is updated - makes ```git pull``` in the specified directory.
+* **`Pull`** — As soon as the remote repository is updated - makes pull in the specified directory.
 
 ### Build and run locally
 ```sh
