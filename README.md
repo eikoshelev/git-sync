@@ -15,18 +15,21 @@ Real-time local repository update (every N time):
 * Checks repository updates every N time;
 * As soon as the remote repository is updated - makes ```git pull``` in the specified directory.
 
-### Getting
+### Build and run locally
 ```sh
-git clone https://github.com/eikoshelev/git-sync.git
+$ git clone https://github.com/eikoshelev/git-sync.git
+$ cd git-sync && go build
+$ ./git-sync <flags>
 ```
-### Building
+### Docker
+
+The latest release is automatically published to the [Docker registry](https://hub.docker.com/r/eikoshelev/git-sync).
+
+You can run it like this:
 ```sh
-cd git-sync && go build
+$ docker run -d --name git-sync eikoshelev/git-sync
 ```
-### Docker container
-```sh
-docker pull eikoshelev/git-sync
-```
+
 ### Usage
 
 * Description of the flags used: ```./git-sync -h```
@@ -43,9 +46,9 @@ docker pull eikoshelev/git-sync
 |`GIT_HTTP_LOGIN`   | -login  | Login for HTTP auth to the remote repository 
 |`GIT_HTTP_PASSWORD`| -pass   | Password for HTTP auth to the remote repository 
 |`GIT_FORCE_PULL`   |  -force | Forced pull with changed local repository: allowed - `true`, not allowed (default) - `false` 
-|`GIT_SYNC_BRANCH`  | -branch | Remote branch for pull. **NOTE: If the 'tag' flag/env is specified, the 'branch' flag/env will be ignored!**, for example - `develop`, `patch`, etc 
-|`GIT_SYNC_TAG`     | -tag    | Remote tag for pull. **NOTE: If the tag flag/env is specified, the specified branch flag/env will be ignored!**, for example - `"v1.0.0"`, `"v2.0"`, `"v3.0-stable"`, etc 
+|`GIT_SYNC_BRANCH`  | -branch | Remote branch for pull. **NOTE: If the 'tag' flag/env is specified, the 'branch' flag/env will be ignored**, for example - `develop`, `patch`, etc 
+|`GIT_SYNC_TAG`     | -tag    | Remote tag for pull. **NOTE: If the tag flag/env is specified, the specified branch flag/env will be ignored**, for example - `"v1.0.0"`, `"v2.0"`, `"v3.0-stable"`, etc 
 
-## What else?
+### What else?
 
 Open an issue or PR if you have more suggestions, questions or ideas about what to add.
