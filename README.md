@@ -21,7 +21,7 @@ $ git clone https://github.com/eikoshelev/git-sync.git
 $ cd git-sync && go build
 $ ./git-sync <flags>
 ```
-### Docker
+### Docker container
 
 The latest release is automatically published to the [Docker registry](https://hub.docker.com/r/eikoshelev/git-sync).
 
