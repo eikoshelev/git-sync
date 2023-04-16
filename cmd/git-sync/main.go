@@ -30,6 +30,5 @@ func main() {
 		repository,
 		&logger,
 	)
-
 	git.Sync()
 }

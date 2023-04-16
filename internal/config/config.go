@@ -8,9 +8,10 @@ import (
 
 type config struct {
 	// git
-	SSHKeyPath   string `envconfig:"GSYNC_SSH_KEY_PATH"`
-	HTTPLogin    string `envconfig:"GSYNC_HTTP_LOGIN"`
-	HTTPPassword string `envconfig:"GSYNC_HTTP_PASSWORD"`
+	SSHKeyPath    string `envconfig:"GSYNC_SSH_KEY_PATH" default:"/$HOME/.ssh/id_rsa"`
+	SSHKnownHosts string `envconfig:"GSYNC_SSH_KNOWN_HOSTS" default:"/$HOME/.ssh/known_hosts"`
+	HTTPLogin     string `envconfig:"GSYNC_HTTP_LOGIN"`
+	HTTPPassword  string `envconfig:"GSYNC_HTTP_PASSWORD"`
 	// repository
 	RemoteRepoURL    string `envconfig:"GSYNC_REPO_URL" required:"true"`
 	RemoteRepoTag    string `envconfig:"GSYNC_REPO_TAG"`

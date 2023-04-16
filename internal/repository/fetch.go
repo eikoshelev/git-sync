@@ -5,7 +5,7 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/transport"
 )
 
-// chek update repository
+// check update repository
 func (repo *Repository) Fetch(auth transport.AuthMethod) error {
 	return repo.Local.Fetch(&go_git.FetchOptions{
 		Auth: auth,

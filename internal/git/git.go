@@ -20,8 +20,6 @@ type Git struct {
 	Logger                      *zap.Logger
 }
 
-const SSHGitUser = "git"
-
 func Init(sshKeyPath, login, password string, repository *repository.Repository, logger *zap.Logger) *Git {
 	return &Git{
 		SSHKeyPath: sshKeyPath,
@@ -48,7 +46,7 @@ func (git *Git) Auth() error {
 			return err
 		}
 		git.AuthMethod = &gitssh.PublicKeys{
-			User:   SSHGitUser,
+			User:   gitssh.DefaultUsername,
 			Signer: signer,
 		}
 	} else {
