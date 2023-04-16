@@ -31,13 +31,13 @@ func Init(sshKeyPath, login, password string, repository *repository.Repository,
 }
 
 // SSH or HTTP auth
-func (git *Git) Auth() error {
-	ep, err := transport.NewEndpoint(git.Repository.URL)
+func (g *Git) Auth() error {
+	ep, err := transport.NewEndpoint(g.Repository.URL)
 	if err != nil {
 		return err
 	}
 	if strings.HasPrefix(ep.Protocol, "ssh") {
-		key, err := os.ReadFile(git.SSHKeyPath)
+		key, err := os.ReadFile(g.SSHKeyPath)
 		if err != nil {
 			return err
 		}
@@ -45,14 +45,14 @@ func (git *Git) Auth() error {
 		if err != nil {
 			return err
 		}
-		git.AuthMethod = &gitssh.PublicKeys{
+		g.AuthMethod = &gitssh.PublicKeys{
 			User:   gitssh.DefaultUsername,
 			Signer: signer,
 		}
 	} else {
-		git.AuthMethod = &githttp.BasicAuth{
-			Username: git.Login,
-			Password: git.Password,
+		g.AuthMethod = &githttp.BasicAuth{
+			Username: g.Login,
+			Password: g.Password,
 		}
 	}
 	return nil

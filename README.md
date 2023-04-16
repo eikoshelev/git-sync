@@ -18,7 +18,7 @@ Real-time local repository update (every N time):
 
 ### Build and run locally
 
-```sh
+```bash
 git clone https://github.com/eikoshelev/git-sync.git
 cd git-sync && go build
 ```
@@ -29,7 +29,7 @@ The latest release is automatically published to the [Docker registry](https://h
 
 You can run it like this:
 
-```sh
+```bash
 docker run -d --name git-sync eikoshelev/git-sync
 ```
 
