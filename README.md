@@ -33,16 +33,16 @@ $ docker run -d --name git-sync eikoshelev/git-sync
   
 | **Environment variable** | **Description** |
 | ------- | --- |
-|`GIT_SYNC_REPO`    | URL to remote repository, example: `git@github.com:eikoshelev/git-sync.git` - for SSH, `https://github.com/eikoshelev/git-sync.git` - for HTTP 
-|`GIT_SYNC_ROOT`    | Path to local directory for repository: `/path/to/your/local/directory` 
-|`GIT_SYNC_WAIT`    | Timeout for check update (fetch), default - `1m`, for example `1s`, `2m`, `3h`, etc 
-|`GIT_SSH_KEY_PATH` | Path to private SSH key for auth to the remote repository, for example - `/$HOME/.ssh/id_rsa` 
-|`SSH_KNOWN_HOSTS`  | Path to `known_hosts` file for work with remote repository, default - `/$HOME/.ssh/known_hosts`
-|`GIT_HTTP_LOGIN`   | Login for HTTP auth to the remote repository 
-|`GIT_HTTP_PASSWORD`| Password for HTTP auth to the remote repository 
-|`GIT_FORCE_PULL`   | Forced pull with changed local repository: allowed - `true`, not allowed (default) - `false` 
-|`GIT_SYNC_BRANCH`  | Remote branch for pull, for example - `develop`, `patch`, etc. **NOTE: If the 'tag' flag/env is specified, the 'branch' flag/env will be ignored!**
-|`GIT_SYNC_TAG`     | Remote tag for pull, for example - `"v1.0.0"`, `"v2.0"`, `"v3.0-stable"`, etc. **NOTE: If the 'tag' flag/env is specified, the specified 'branch' flag/env will be ignored!**
+|`GSYNC_REPO_URL`        | URL to remote repository, example: `git@github.com:eikoshelev/git-sync.git` - for SSH, `https://github.com/eikoshelev/git-sync.git` - for HTTP 
+|`GSYNC_REPO_LOCAL_PATH` | Path to local directory for repository: `/path/to/your/local/directory` 
+|`GSYNC_FETCH_TIMEOUT`   | Timeout for check update (fetch), default - `5m`, for example `1s`, `2m`, `3h`, etc 
+|`GSYNC_SSH_KEY_PATH`    | Path to private SSH key for auth to the remote repository, for example - `/$HOME/.ssh/id_rsa` 
+|`GSYNC_SSH_KNOWN_HOSTS` | Path to `known_hosts` file for work with remote repository, default - `/$HOME/.ssh/known_hosts`
+|`GSYNC_HTTP_LOGIN`      | Login for HTTP auth to the remote repository 
+|`GSYNC_HTTP_PASSWORD`   | Password for HTTP auth to the remote repository 
+|`GSYNC_FORCE_PULL`      | Forced pull with changed local repository: allowed - `true`, not allowed (default) - `false` 
+|`GSYNC_REPO_BRANCH`     | Remote branch for pull, for example - `develop`, `patch`, etc. **NOTE: If the 'tag' is specified, the 'branch' will be ignored!**
+|`GSYNC_REPO_TAG`        | Remote tag for pull, for example - `"v1.0.0"`, `"v2.0-rc"`, `"v3.0-stable"`, etc. **NOTE: If the 'tag' is specified, the specified 'branch' will be ignored!**
 
 ### What else?
 
