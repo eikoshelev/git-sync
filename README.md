@@ -20,7 +20,8 @@ Real-time local repository update (every N time):
 
 ```bash
 git clone https://github.com/eikoshelev/git-sync.git
-cd git-sync && go build
+cd git-sync && go build ./cmd/git-sync
+./git-sync
 ```
 
 ### Docker container
