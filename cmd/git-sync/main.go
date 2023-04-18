@@ -5,6 +5,7 @@ import (
 	"github.com/eikoshelev/git-sync/internal/git"
 	"github.com/eikoshelev/git-sync/internal/logger"
 	"github.com/eikoshelev/git-sync/internal/repository"
+
 	"go.uber.org/zap"
 )
 

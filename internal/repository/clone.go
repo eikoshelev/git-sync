@@ -1,11 +1,10 @@
 package repository
 
 import (
-	"github.com/pkg/errors"
-
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing"
 	"github.com/go-git/go-git/v5/plumbing/transport"
+	"github.com/pkg/errors"
 )
 
 func (repo *Repository) Clone(auth transport.AuthMethod) error {
@@ -16,8 +15,8 @@ func (repo *Repository) Clone(auth transport.AuthMethod) error {
 		if errors.Is(err, git.ErrRepositoryNotExists) {
 			repo.Local, err = git.PlainClone(repo.LocalPath, false, &git.CloneOptions{
 				URL:           repo.URL,
-				ReferenceName: plumbing.ReferenceName(repo.Branch),
 				Auth:          auth,
+				ReferenceName: plumbing.ReferenceName(repo.Branch),
 				SingleBranch:  true,
 			})
 			if err != nil {

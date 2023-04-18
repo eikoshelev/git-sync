@@ -15,13 +15,13 @@ func (repo *Repository) Pull(auth transport.AuthMethod) error {
 	}
 	err = wTree.Pull(&git.PullOptions{
 		ReferenceName: plumbing.ReferenceName(repo.Branch),
-		Auth:          auth,
 		SingleBranch:  true,
+		Auth:          auth,
 	})
 	if err != nil {
 		if errors.Is(err, git.ErrUnstagedChanges) {
 			if repo.ForcePull {
-				if err := wTree.Reset(&git.ResetOptions{Mode: git.ResetMode(1)}); err != nil {
+				if err := wTree.Reset(&git.ResetOptions{Mode: git.ResetMode(git.HardReset)}); err != nil {
 					return err
 				}
 				return nil
