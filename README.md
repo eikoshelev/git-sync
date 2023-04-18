@@ -20,7 +20,13 @@ Real-time local repository update (every N time):
 
 ```bash
 git clone https://github.com/eikoshelev/git-sync.git
+```
+
+```bash
 cd git-sync && go build ./cmd/git-sync
+```
+
+```bash
 ./git-sync
 ```
 
