@@ -14,7 +14,7 @@ func main() {
 	if err != nil {
 		logger.Fatal("configuration failed", zap.String("reason", err.Error()))
 	}
-	logger.Info("configuration success", zap.Any("config", config))
+	logger.Info("configuration successful")
 	repository := repository.Init(
 		config.RemoteRepoURL,
 		config.RemoteRepoTag,
@@ -28,7 +28,7 @@ func main() {
 		config.HTTPLogin,
 		config.HTTPPassword,
 		repository,
-		&logger,
+		logger,
 	)
 	git.Sync()
 }

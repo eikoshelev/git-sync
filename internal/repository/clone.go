@@ -21,11 +21,11 @@ func (repo *Repository) Clone(auth transport.AuthMethod) error {
 				SingleBranch:  true,
 			})
 			if err != nil {
-				return err
+				return errors.Wrap(err, "clone repository failed")
 			}
 			return nil
 		}
-		return err
+		return errors.Wrap(err, "open local repository failed")
 	}
 	return nil
 }
