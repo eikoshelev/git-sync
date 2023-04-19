@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/eikoshelev/git-sync.svg?branch=master)](https://travis-ci.org/eikoshelev/git-sync)
-![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/eikoshelev/git-sync)
-
 # git-sync
+
+> **Warning**
+> This is a warning
 
 :recycle: Easy to use and stable update of your repository.
   
@@ -32,12 +32,14 @@ cd git-sync && go build ./cmd/git-sync
 
 ### Docker container
 
-The latest release is automatically published to the [Docker registry](https://hub.docker.com/r/eikoshelev/git-sync).
-
 You can run it like this:
-
 ```bash
-docker run -d --name git-sync eikoshelev/git-sync
+docker run -d --name git-sync eikoshelev/git-sync:v2.0.0
+```
+
+..or build your own container:
+```bash
+docker build -t eikoshelev/git-sync:v2.0.0 --platform <OS>/<ARCH> .
 ```
 
 ### Usage
