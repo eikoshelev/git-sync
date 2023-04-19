@@ -1,10 +1,9 @@
-FROM golang:alpine AS build
+FROM golang:1.19 AS builder
 WORKDIR /src
 ADD . .
-WORKDIR /src
-RUN go build -o git-sync
+RUN CGO_ENABLED=0 GOOS=linux go build -o git-sync ./cmd/git-sync/
 
-FROM alpine
+FROM alpine:latest AS production
 WORKDIR /bin
-COPY --from=build /src/git-sync .
+COPY --from=builder /src/git-sync .
 CMD ["git-sync"]
