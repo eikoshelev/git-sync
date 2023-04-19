@@ -1,7 +1,7 @@
 # git-sync
 
-> **Warning**
-> This is a warning
+> **Warning**  
+> The use of flags is deprecated! All configuration using environment variables only!
 
 :recycle: Easy to use and stable update of your repository.
   
@@ -33,13 +33,19 @@ cd git-sync && go build ./cmd/git-sync
 ### Docker container
 
 You can run it like this:
+
 ```bash
 docker run -d --name git-sync eikoshelev/git-sync:v2.0.0
 ```
 
 ..or build your own container:
+
 ```bash
-docker build -t eikoshelev/git-sync:v2.0.0 --platform <OS>/<ARCH> .
+git clone https://github.com/eikoshelev/git-sync.git
+```
+
+```bash
+cd git-sync && docker build -t eikoshelev/git-sync:v2.0.0 --platform <OS>/<ARCH> .
 ```
 
 ### Usage
